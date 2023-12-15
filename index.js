@@ -1,25 +1,11 @@
 const express = require('express'); // using common js instead of es 2015
 
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const keys = require('./config/keys');
-
 const app = express(); // create a new app, express can support multiple apps
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: keys.googleClientID,
-      clientSecret: keys.googleClientSecret,
-      callbackURL: '/auth/google/callback'
-    }, 
-    (accessToken) => {
-      console.log(accessToken);
-    }
-  )
-);
+require('./routes/authRoutes')(app); // register auth handlers
 
-// define route handlers
+require('./services/passport'); // execute passport.use() method
 
+// sample route handlers
 /*
 // simplest test route
 app.get('/', (req, res) => { // http get method for route of context root /
@@ -33,3 +19,4 @@ const PORT = process.env.PORT || 5000; // the port number is 5000 or will be inj
 app.listen(PORT); // localhost:5000 or render provided URL https://umaily.onrender.com
 
 // node index.js or check start script in the package.json file
+// for dev env: npm run dev (see package.json for "dev" scrip)
