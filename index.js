@@ -1,8 +1,16 @@
 const express = require('express'); // using common js instead of es 2015
+const mongoose = require('mongoose');
+
+const keys = require('./config/keys');
 
 const app = express(); // create a new app, express can support multiple apps
 require('./routes/authRoutes')(app); // register auth handlers
 
+// establish cosmos db connection
+mongoose.connect(keys.mongoURI);
+require('./models/Users'); // execute user model class creating code
+
+// need to execute after loading user model class
 require('./services/passport'); // execute passport.use() method
 
 // sample route handlers
