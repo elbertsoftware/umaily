@@ -15,7 +15,7 @@ passport.use(
     {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
-      callbackURL: '/auth/google/callback'
+      callbackURL: keys.googleRedirectURI
     }, 
     (accessToken, refreshToken, profile, done) => { // the arrow function called when authentication completed by passport
       // console.log('accessToken', accessToken);
